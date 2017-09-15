@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioChannel.cs" />
+    <Compile Include="MenuColoursTable.cs" />
     <Compile Include="Window.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -35,14 +35,14 @@ namespace WaveProject {
         }
 
         private void InitChartArea(String name) {
-            chartArea.AxisX.LabelStyle.ForeColor = System.Drawing.Color.Green;
+            chartArea.AxisX.LabelStyle.ForeColor = Color.LightGreen;
             chartArea.AxisX.MajorGrid.LineWidth = 0;
             chartArea.AxisX.Minimum = 0D;
-            chartArea.AxisY.LabelStyle.ForeColor = Color.Green;
+            chartArea.AxisY.LabelStyle.ForeColor = Color.LightGreen;
             chartArea.AxisY.MajorGrid.LineWidth = 0;
             chartArea.AxisY.Title = name;
             chartArea.AxisY.TitleForeColor = Color.Red;
-            chartArea.BackColor = Color.Black;
+            chartArea.BackColor = Color.FromArgb(255, 35, 35, 35);
             chartArea.CursorX.IsUserEnabled = true;
             chartArea.CursorX.IsUserSelectionEnabled = true;
             chartArea.Name = "ChartArea";
@@ -56,8 +56,11 @@ namespace WaveProject {
             series.ChartType = SeriesChartType.Spline;
             series.Color = Color.Green;
             series.Name = "Series";
-            series.Points.AddXY(0, 120);
-            series.Points.AddXY(1, 0);
+            series.Points.AddXY(0, 0);
+            series.Points.AddXY(1, 140);
+            series.Points.AddXY(2, 0);
+            series.Points.AddXY(3, -140);
+            series.Points.AddXY(4, 0);
 
             chart.Series.Add(series);
         }
@@ -68,7 +71,7 @@ namespace WaveProject {
             chart.Text = name;
             chart.Location = new Point(xPos, yPos);
             chart.Name = name;
-            chart.BackColor = Color.Black;
+            chart.BackColor = Color.FromArgb(255, 25, 25, 25);
         }
 
         private Chart chart;
