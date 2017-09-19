@@ -48,6 +48,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioChannel.cs" />
+    <Compile Include="ButtonPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ChannelPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CircleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FrequencyChannel.cs" />
+    <Compile Include="FrequencyPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MasterChannel.cs" />
     <Compile Include="MenuColoursTable.cs" />
     <Compile Include="Window.cs">
       <SubType>Form</SubType>

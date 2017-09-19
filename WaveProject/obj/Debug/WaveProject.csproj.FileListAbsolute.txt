@@ -6,4 +6,3 @@ C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveP
 C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.csproj.GenerateResource.Cache
 C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.exe
 C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.pdb
-C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.csprojResolveAssemblyReference.cache

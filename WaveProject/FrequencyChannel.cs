@@ -7,8 +7,7 @@ using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WaveProject {
-    class AudioChannel {
-
+    class FrequencyChannel {
         private MasterChannel master;
         private Chart chart;
         private ChartArea chartArea;
@@ -16,13 +15,13 @@ namespace WaveProject {
         public bool triggeredSelectionReset = false;
 
         // CONSTRUCTORS START
-        public AudioChannel() : this("Audio Channel") {}
+        public FrequencyChannel() : this("Frequency Channel") { }
 
-        public AudioChannel(String name) : this(name, 0, 0) {}
+        public FrequencyChannel(String name) : this(name, 0, 0) { }
 
-        public AudioChannel(String name, int xPos, int yPos) : this(name, xPos, yPos, 100, 100) {}
+        public FrequencyChannel(String name, int xPos, int yPos) : this(name, xPos, yPos, 100, 100) { }
 
-        public AudioChannel(String name, int xPos, int yPos, int width, int height) {
+        public FrequencyChannel(String name, int xPos, int yPos, int width, int height) {
             this.chart = new Chart();
             this.chartArea = new ChartArea();
             this.series = new Series();
@@ -31,30 +30,14 @@ namespace WaveProject {
         }
         // CONSTRUCTORS END
 
-        // FUNCTIONS START
-        protected void CursorXChanged(object sender, CursorEventArgs e) {
-            if (master != null) {
-                master.CursorX = e.NewPosition;
-            }
-        }
-
-        protected void SelectionXChanged(object sender, CursorEventArgs e) {
-            if (master != null) {
-                triggeredSelectionReset= true;
-                master.ClearChannelSelection();
-                triggeredSelectionReset = false;
-            }
-        }
-        // FUNCTIONS END
-
         // INIT START
         private void Init(String name, int xPos, int yPos, int width, int height) {
             InitChartArea(name);
             InitSeries();
             InitChart(name, xPos, yPos, width, height);
-            
-            chart.CursorPositionChanging += new EventHandler<CursorEventArgs>(CursorXChanged);
-            chart.SelectionRangeChanging += new EventHandler<CursorEventArgs>(SelectionXChanged);
+
+            //chart.CursorPositionChanging += new EventHandler<CursorEventArgs>(CursorXChanged);
+            //chart.SelectionRangeChanging += new EventHandler<CursorEventArgs>(SelectionXChanged);
         }
 
         private void InitChartArea(String name) {
@@ -71,22 +54,22 @@ namespace WaveProject {
             chartArea.CursorX.IsUserSelectionEnabled = true;
             chartArea.AxisX.ScaleView.Zoomable = false;
             chartArea.CursorX.Position = 0;
-            chartArea.CursorX.IntervalType = DateTimeIntervalType.Seconds;
-            
-            chartArea.AxisX.IntervalType = DateTimeIntervalType.Seconds;
-            chartArea.AxisX.Interval = 1;
-            chartArea.AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Seconds;
-            chartArea.AxisX.LabelStyle.Format = "mm:ss";
+            //chartArea.CursorX.IntervalType = DateTimeIntervalType.Seconds;
+
+            //chartArea.AxisX.IntervalType = DateTimeIntervalType.Seconds;
+            //chartArea.AxisX.Interval = 1;
+            //chartArea.AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Seconds;
+            //chartArea.AxisX.LabelStyle.Format = "mm:ss";
             chartArea.Name = "ChartArea";
 
             chart.ChartAreas.Add(chartArea);
         }
 
         private void InitSeries() {
-            series.XValueType = ChartValueType.Time;
+            //series.XValueType = ChartValueType.Time;
             series.BorderWidth = 2;
             series.ChartArea = "ChartArea";
-            series.ChartType = SeriesChartType.Spline;
+            //series.ChartType = SeriesChartType.Spline;
             series.Color = Color.Green;
             series.Name = "Series";
 
@@ -118,59 +101,11 @@ namespace WaveProject {
         }
         // INIT END
 
-        // Empties the series buffer of data points
-        public void ClearData() {
-
-        }
-
-        // Loads in a collection of data into the series
-        public void LoadData(/*Collection<T> c*/) {
-
-        }
-
-        // Saves the whole series
-        public void SaveData() {
-
-        }
-
-        // Saves a segment of the series
-        public void SaveDataRange(int start, int stop) {
-
-        }
-        
         // PROPERTIES START
-        public Chart Chart {
-            get {
-                return chart;
-            }
-            set {
-                chart = value;
-            }
-        }
-        public Series Series {
-            get {
-                return series;
-            }
-            set {
-                series = value;
-            }
-        }
-        public ChartArea ChartArea {
-            get {
-                return chartArea;
-            }
-            set {
-                chartArea = value;
-            }
-        }
-        public MasterChannel MasterChannel {
-            get {
-                return master;
-            }
-            set {
-                master = value;
-            }
-        }
+        public Chart Chart { get; set; }
+        public Series Series { get; set; }
+        public ChartArea ChartArea { get; set; }
+        public MasterChannel MasterChannel { get; set; }
         // PROPERTIES END
     }
 }
