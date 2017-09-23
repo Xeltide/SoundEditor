@@ -30,6 +30,11 @@ namespace WaveProject {
         }
         // CONSTRUCTORS END
 
+        public void Resize_Chart(Point position, Size parentSize) {
+            chart.Location = position;
+            chart.ClientSize = parentSize;
+        }
+
         // INIT START
         private void Init(String name, int xPos, int yPos, int width, int height) {
             InitChartArea(name);
@@ -46,7 +51,7 @@ namespace WaveProject {
             chartArea.AxisX.Minimum = 0D;
             chartArea.AxisY.LabelStyle.ForeColor = Color.LightGreen;
             chartArea.AxisY.MajorGrid.LineWidth = 0;
-            chartArea.AxisY.Title = name;
+            chartArea.AxisX.Title = name;
             chartArea.AxisY.TitleForeColor = Color.Red;
             //SET THE ZOOM LEVEL VIA FUNCTION DURING MOUSEWHEEL EVENT
             chartArea.BackColor = Color.FromArgb(255, 35, 35, 35);
@@ -74,18 +79,9 @@ namespace WaveProject {
             series.Name = "Series";
 
             // Dummy data set
-            DateTime dt = DateTime.Today;
             for (int i = 0; i < 10; i++) {
-                DateTime cur = dt.AddSeconds(i);
-                int y;
-                if (i % 2 == 0) {
-                    y = 140;
-                } else if (i % 3 == 0) {
-                    y = -140;
-                } else {
-                    y = 0;
-                }
-                series.Points.AddXY((DateTime)cur, y);
+                int y = i * 20;
+                series.Points.AddXY(i, y);
             }
 
             chart.Series.Add(series);
@@ -98,14 +94,46 @@ namespace WaveProject {
             chart.Location = new Point(xPos, yPos);
             chart.Name = name;
             chart.BackColor = Color.FromArgb(255, 25, 25, 25);
+            chart.MinimumSize = new Size(0, 210);
+            chart.MaximumSize = new Size(1920, 210);
         }
         // INIT END
 
         // PROPERTIES START
-        public Chart Chart { get; set; }
-        public Series Series { get; set; }
-        public ChartArea ChartArea { get; set; }
-        public MasterChannel MasterChannel { get; set; }
+        public Chart Chart {
+            get {
+                return chart;
+            }
+            set {
+                chart = value;
+            }
+        }
+        public Series Series {
+            get {
+                return series;
+            }
+            set {
+                series = value;
+            }
+        }
+        public ChartArea ChartArea {
+            get {
+                return chartArea;
+            }
+            set {
+                chartArea = value;
+            }
+        }
+        public MasterChannel MasterChannel {
+            get {
+                return master;
+            }
+            set {
+                master = value;
+            }
+        }
+        public const int SIZE = 210;
+        public const int WIDTH_PADDING = 48;
         // PROPERTIES END
     }
 }

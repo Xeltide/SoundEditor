@@ -45,6 +45,10 @@ namespace WaveProject {
                 triggeredSelectionReset = false;
             }
         }
+
+        public void Resize_Chart(Size parentSize) {
+            this.chart.ClientSize = parentSize;
+        }
         // FUNCTIONS END
 
         // INIT START
@@ -63,8 +67,10 @@ namespace WaveProject {
             chartArea.AxisX.Minimum = 0D;
             chartArea.AxisY.LabelStyle.ForeColor = Color.LightGreen;
             chartArea.AxisY.MajorGrid.LineWidth = 0;
-            chartArea.AxisY.Title = name;
-            chartArea.AxisY.TitleForeColor = Color.Red;
+            chartArea.AxisX.MajorGrid.LineColor = Color.DimGray;
+            chartArea.AxisY.LineColor = Color.DimGray;
+            chartArea.AxisX.Title = name;
+            chartArea.AxisY.TitleForeColor = Color.FromArgb(255, 200, 25, 25);
             //SET THE ZOOM LEVEL VIA FUNCTION DURING MOUSEWHEEL EVENT
             chartArea.BackColor = Color.FromArgb(255, 35, 35, 35);
             chartArea.CursorX.IsUserEnabled = true;
@@ -90,31 +96,32 @@ namespace WaveProject {
             series.Color = Color.Green;
             series.Name = "Series";
 
-            // Dummy data set
-            DateTime dt = DateTime.Today;
-            for (int i = 0; i < 10; i++) {
-                DateTime cur = dt.AddSeconds(i);
-                int y;
-                if (i % 2 == 0) {
-                    y = 140;
-                } else if (i % 3 == 0) {
-                    y = -140;
-                } else {
-                    y = 0;
-                }
-                series.Points.AddXY((DateTime)cur, y);
-            }
+            GenerateComplexWave(series);
 
             chart.Series.Add(series);
         }
 
+        private void GenerateComplexWave(Series series) {
+            int sr = 10;
+            int ss = 5;
+            for (double i = 0; i <= (ss * sr); i++) {
+                double complex = (2 * Math.Cos(2 * Math.PI * 3 * (double)(i / sr))) + (3 * Math.Cos(2 * Math.PI * 5 * (double)(i / sr)));
+                DateTime dt = DateTime.Today;
+                double t = 1000 * (double)(i / sr);
+                series.Points.AddXY(dt.AddMilliseconds(t), complex);
+            }
+            
+        }
+
         private void InitChart(String name, int xPos, int yPos, int width, int height) {
-            chart.Size = new Size(width, height);
+            chart.ClientSize = new Size(width, height);
             chart.TabIndex = 1;
             chart.Text = name;
             chart.Location = new Point(xPos, yPos);
             chart.Name = name;
             chart.BackColor = Color.FromArgb(255, 25, 25, 25);
+            chart.MaximumSize = new Size(1920, 210);
+            chart.MinimumSize = new Size(0, 210);
         }
         // INIT END
 
@@ -171,6 +178,7 @@ namespace WaveProject {
                 master = value;
             }
         }
+        public const int HEIGHT = 210;
         // PROPERTIES END
     }
 }

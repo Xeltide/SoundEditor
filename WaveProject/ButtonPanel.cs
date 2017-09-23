@@ -17,12 +17,12 @@ namespace WaveProject {
 
         private void Init(Point position, Size parentSize) {
             this.Location = position;
-            this.ClientSize = new Size(parentSize.Width, 77);
-            this.BackColor = Color.FromArgb(255, 35, 35, 35);
+            this.ClientSize = new Size(parentSize.Width, HEIGHT);
+            this.BackColor = Color.FromArgb(255, 20, 20, 20);
 
             play.Location = new Point((this.ClientSize.Width / 2) - 33, 5);
             play.Image = new Bitmap("C:\\Users\\Xeltide\\Desktop\\Archive\\BCIT\\Term 3\\COMP 3931\\Project\\WaveProject\\WaveProject\\Play.png");
-            play.BackColor = Color.FromArgb(255, 17, 17, 17);
+            play.BackColor = Color.FromArgb(255, 35, 35, 35);
             play.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             play.FlatAppearance.BorderSize = 0;
             play.Name = "PlayButton";
@@ -32,10 +32,11 @@ namespace WaveProject {
         }
 
         public void ResizePanel(Size parentSize) {
-            this.ClientSize = new Size(parentSize.Width, 77);
+            this.ClientSize = new Size(parentSize.Width, HEIGHT);
             play.Location = new Point((this.ClientSize.Width / 2) - 33, 5);
         }
 
         private CircleButton play;
+        public const int HEIGHT = 78;
     }
 }
