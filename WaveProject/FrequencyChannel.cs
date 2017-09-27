@@ -46,32 +46,28 @@ namespace WaveProject {
         }
 
         private void InitChartArea(String name) {
+            chartArea.BackColor = Color.FromArgb(255, 50, 50, 50);
+
             chartArea.AxisX.LabelStyle.ForeColor = Color.LightGreen;
             chartArea.AxisX.MajorGrid.LineWidth = 1;
             chartArea.AxisX.Minimum = 0D;
+            chartArea.AxisY.Minimum = 0D;
             chartArea.AxisY.LabelStyle.ForeColor = Color.LightGreen;
-            chartArea.AxisY.MajorGrid.LineWidth = 0;
+            chartArea.AxisY.MajorGrid.LineWidth = 1;
             chartArea.AxisX.Title = name;
             chartArea.AxisY.TitleForeColor = Color.Red;
             //SET THE ZOOM LEVEL VIA FUNCTION DURING MOUSEWHEEL EVENT
-            chartArea.BackColor = Color.FromArgb(255, 35, 35, 35);
             chartArea.CursorX.IsUserEnabled = true;
             chartArea.CursorX.IsUserSelectionEnabled = true;
-            chartArea.AxisX.ScaleView.Zoomable = false;
+            chartArea.AxisX.ScaleView.Zoomable = true;
             chartArea.CursorX.Position = 0;
-            //chartArea.CursorX.IntervalType = DateTimeIntervalType.Seconds;
-
-            //chartArea.AxisX.IntervalType = DateTimeIntervalType.Seconds;
-            //chartArea.AxisX.Interval = 1;
-            //chartArea.AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Seconds;
-            //chartArea.AxisX.LabelStyle.Format = "mm:ss";
             chartArea.Name = "ChartArea";
 
             chart.ChartAreas.Add(chartArea);
         }
 
         private void InitSeries() {
-            //series.XValueType = ChartValueType.Time;
+            //series.XValueType = ChartValueType.Auto;
             series.BorderWidth = 2;
             series.ChartArea = "ChartArea";
             //series.ChartType = SeriesChartType.Spline;
@@ -79,10 +75,10 @@ namespace WaveProject {
             series.Name = "Series";
 
             // Dummy data set
-            for (int i = 0; i < 10; i++) {
+            /*for (int i = 0; i < 10; i++) {
                 int y = i * 20;
                 series.Points.AddXY(i, y);
-            }
+            }*/
 
             chart.Series.Add(series);
         }

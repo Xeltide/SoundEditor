@@ -49,7 +49,7 @@ namespace WaveProject {
         private int SumChannelHeight() {
             int sum = 0;
             foreach (AudioPanel ap in audioPanels) {
-                if (!ap.IsMono) {
+                if (!ap.Menu.IsMono) {
                     sum += AudioPanel.STEREO_HEIGHT;
                 } else {
                     sum += AudioPanel.MONO_HEIGHT;
@@ -107,7 +107,7 @@ namespace WaveProject {
             foreach (AudioPanel ap in audioPanels) {
                 ap.Location = new Point(AudioPanel.PADDING, yPos);
                 ap.Resize_Panel();
-                if (ap.IsMono) {
+                if (ap.Menu.IsMono) {
                     yPos += AudioPanel.MONO_HEIGHT;
                 } else {
                     yPos += AudioPanel.STEREO_HEIGHT;

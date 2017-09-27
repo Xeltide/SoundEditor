@@ -77,5 +77,15 @@ namespace WaveProject {
                 return Color.Transparent;
             }
         }
+        public override Color CheckBackground {
+            get {
+                return Color.FromArgb(255, 80, 80, 80);
+            }
+        }
+        public override Color CheckSelectedBackground {
+            get {
+                return Color.FromArgb(255, 80, 80, 80);
+            }
+        }
     }
 }

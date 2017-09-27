@@ -51,6 +51,10 @@
     <Compile Include="AudioPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="AudioPanelData.cs" />
+    <Compile Include="AudioPanelMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ButtonPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -60,15 +64,20 @@
     <Compile Include="CircleButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ComplexNumber.cs" />
+    <Compile Include="FourierMath.cs" />
     <Compile Include="FrequencyChannel.cs" />
     <Compile Include="FrequencyPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MasterChannel.cs" />
     <Compile Include="MenuColoursTable.cs" />
+    <Compile Include="RIFFData.cs" />
     <Compile Include="ScrollPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WavPackager.cs" />
+    <Compile Include="WavParser.cs" />
     <Compile Include="Window.cs">
       <SubType>Form</SubType>
     </Compile>
