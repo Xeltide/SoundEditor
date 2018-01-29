@@ -8,7 +8,6 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WaveProject {
     class FrequencyChannel {
-        private MasterChannel master;
         private Chart chart;
         private ChartArea chartArea;
         private Series series;
@@ -56,10 +55,11 @@ namespace WaveProject {
             chartArea.AxisY.MajorGrid.LineWidth = 1;
             chartArea.AxisX.Title = name;
             chartArea.AxisY.TitleForeColor = Color.Red;
+            //chartArea.AxisX.LabelStyle.Format = "#.#";
             //SET THE ZOOM LEVEL VIA FUNCTION DURING MOUSEWHEEL EVENT
             chartArea.CursorX.IsUserEnabled = true;
             chartArea.CursorX.IsUserSelectionEnabled = true;
-            chartArea.AxisX.ScaleView.Zoomable = true;
+            chartArea.AxisX.ScaleView.Zoomable = false;
             chartArea.CursorX.Position = 0;
             chartArea.Name = "ChartArea";
 
@@ -118,14 +118,6 @@ namespace WaveProject {
             }
             set {
                 chartArea = value;
-            }
-        }
-        public MasterChannel MasterChannel {
-            get {
-                return master;
-            }
-            set {
-                master = value;
             }
         }
         public const int SIZE = 210;

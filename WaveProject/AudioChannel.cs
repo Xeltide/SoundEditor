@@ -8,8 +8,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WaveProject {
     class AudioChannel {
-
-        private MasterChannel master;
+        
         private Chart chart;
         private ChartArea chartArea;
         private Series series;
@@ -32,22 +31,67 @@ namespace WaveProject {
         // CONSTRUCTORS END
 
         // FUNCTIONS START
-        protected void CursorXChanged(object sender, CursorEventArgs e) {
-            if (master != null) {
-                master.CursorX = e.NewPosition;
-            }
-        }
-
-        protected void SelectionXChanged(object sender, CursorEventArgs e) {
-            if (master != null) {
-                triggeredSelectionReset= true;
-                master.ClearChannelSelection();
-                triggeredSelectionReset = false;
-            }
-        }
-
         public void Resize_Chart(Size parentSize) {
             this.chart.ClientSize = parentSize;
+        }
+
+        protected void MouseEnter_Chart(object sender, EventArgs e) {
+            this.Chart.Focus();
+        }
+
+        protected void MouseExit_Chart(object sender, EventArgs e) {
+            Window.window.Focus();
+        }
+
+        protected void Zoom_Chart(object sender, System.Windows.Forms.MouseEventArgs e) {
+            if (e.Delta < 0) {
+                ChartArea.AxisX.ScaleView.ZoomReset();
+            }
+
+            if (e.Delta > 0) {
+                double xMin = ChartArea.AxisX.ScaleView.ViewMinimum;
+                double xMax = ChartArea.AxisX.ScaleView.ViewMaximum;
+
+                // Internal function call of PixelPositionToValue fails sometimes
+                try
+                {
+                    double posXStart = ChartArea.AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
+                    double posXFinish = ChartArea.AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
+
+                    if ((int)posXFinish - (int)posXStart > 1)
+                    {
+                        ChartArea.AxisX.ScaleView.Zoom(posXStart, posXFinish);
+                    }
+                } catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                
+            }
+
+            RefreshViewablePoints();
+        }
+
+        protected void Scroll_Chart(object sender, EventArgs e) {
+            RefreshViewablePoints();
+        }
+
+        public void RefreshViewablePoints() {
+            if (worker == null) {
+                if (this.Equals(Panel.TimeChannel1)) {
+                    worker = new Workers.ChartRenderWorker(Panel, 0, false);
+                } else {
+                    worker = new Workers.ChartRenderWorker(Panel, 1, false);
+                }
+            } else if (worker.IsBusy) {
+                try {
+                    worker.CancelAsync();
+                } catch { /* Race condition */ };
+            }
+
+            try {
+                worker.RunWorkerAsync();
+            } catch { /* Race condition */ };
         }
         // FUNCTIONS END
 
@@ -57,8 +101,10 @@ namespace WaveProject {
             InitSeries();
             InitChart(name, xPos, yPos, width, height);
             
-            chart.CursorPositionChanging += new EventHandler<CursorEventArgs>(CursorXChanged);
-            chart.SelectionRangeChanging += new EventHandler<CursorEventArgs>(SelectionXChanged);
+            chart.MouseEnter += new EventHandler(MouseEnter_Chart);
+            chart.MouseLeave += new EventHandler(MouseExit_Chart);
+            chart.MouseWheel += new System.Windows.Forms.MouseEventHandler(Zoom_Chart);
+            chart.AxisViewChanged += new EventHandler<ViewEventArgs>(Scroll_Chart);
         }
 
         private void InitChartArea(String name) {
@@ -67,18 +113,15 @@ namespace WaveProject {
 
             chartArea.AxisX.Title = name;
             chartArea.AxisX.TitleForeColor = Color.LightGreen;
+            chartArea.AxisX.MajorGrid.Enabled = false;
             chartArea.AxisX.MajorGrid.LineWidth = 1;
             chartArea.AxisX.MajorGrid.LineColor = Color.DimGray;
             chartArea.AxisX.Minimum = 0D;
-            chartArea.AxisX.ScaleView.Zoomable = true;
-            // DateTime.AddSeconds is being converted to Days?
-            chartArea.AxisX.IntervalType = DateTimeIntervalType.Seconds;
-            // Interval = sample rate gives seconds lines
-            chartArea.AxisX.Interval = 1;
-            chartArea.AxisX.LabelStyle.Interval = 1;
+            chartArea.AxisX.ScaleView.Zoomable = false;
+            chartArea.AxisX.IsMarginVisible = false;
+            chartArea.AxisX.IntervalType = DateTimeIntervalType.Number;
             chartArea.AxisX.LabelStyle.ForeColor = Color.LightGreen;
-            chartArea.AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Seconds;
-            chartArea.AxisX.LabelStyle.Format = "mm:ss";
+            chartArea.AxisX.LabelStyle.Format = "#";
 
             chartArea.AxisY.LabelStyle.ForeColor = Color.LightGreen;
             chartArea.AxisY.MajorGrid.LineWidth = 0;
@@ -87,14 +130,13 @@ namespace WaveProject {
             chartArea.CursorX.IsUserEnabled = true;
             chartArea.CursorX.IsUserSelectionEnabled = true;
             chartArea.CursorX.Position = 0;
-            chartArea.CursorX.IntervalType = DateTimeIntervalType.Milliseconds;
-            //SET THE ZOOM LEVEL VIA FUNCTION DURING MOUSEWHEEL EVENT
-            
+            chartArea.CursorX.IntervalType = DateTimeIntervalType.Number;
+            chartArea.CursorX.Interval = 0;
+
             chart.ChartAreas.Add(chartArea);
         }
 
         private void InitSeries() {
-            series.XValueType = ChartValueType.Time;
             series.BorderWidth = 1;
             series.ChartArea = "ChartArea";
             series.ChartType = SeriesChartType.FastLine;
@@ -102,19 +144,6 @@ namespace WaveProject {
             series.Name = "Series";
             
             chart.Series.Add(series);
-        }
-
-        private void GenerateComplexWave(Series series) {            
-            int Nsamples = 1000;
-            int f = 6; // revolutions/sec
-            int A = 3;
-            double step = 1.0 / Nsamples;
-            DateTime dt = DateTime.Today;
-            for (int time = 0; time < Nsamples; time++) {
-                DateTime cur = dt.AddSeconds(step * time);
-                double point = A * Math.Cos(2 * Math.PI * f * time / Nsamples);
-                series.Points.AddXY(dt, point);
-            }
         }
 
         private void InitChart(String name, int xPos, int yPos, int width, int height) {
@@ -153,14 +182,8 @@ namespace WaveProject {
                 chartArea = value;
             }
         }
-        public MasterChannel MasterChannel {
-            get {
-                return master;
-            }
-            set {
-                master = value;
-            }
-        }
+        private Workers.ChartRenderWorker worker;
+        public AudioPanel Panel { get; set; }
         public const int HEIGHT = 210;
         // PROPERTIES END
     }

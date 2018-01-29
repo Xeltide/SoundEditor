@@ -1,9 +1,9 @@
-C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.csprojResolveAssemblyReference.cache
-C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.Window.resources
-C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.Properties.Resources.resources
-C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.csproj.GenerateResource.Cache
 C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\bin\Debug\WaveProject.exe.config
 C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\bin\Debug\WaveProject.exe
 C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\bin\Debug\WaveProject.pdb
+C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.Window.resources
+C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.Properties.Resources.resources
+C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.csproj.GenerateResource.Cache
 C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.exe
 C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.pdb
+C:\Users\Xeltide\Desktop\Archive\BCIT\Term 3\COMP 3931\Project\WaveProject\WaveProject\obj\Debug\WaveProject.csprojResolveAssemblyReference.cache

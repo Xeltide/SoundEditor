@@ -15,9 +15,11 @@ namespace WaveProject {
             this.Location = new Point(0, Window.HEADER_HEIGHT);
             this.ClientSize = new Size(parent.ClientSize.Width, VirtualHeight);
             audioPanels = new LinkedList<AudioPanel>();
+            ScrollData = new GUI.ScrollData();
             Init_AddChannel();
             Resize_Panel();
         }
+
         private void Init_AddChannel() {
             addChannelButton = new CircleButton();
 
@@ -35,13 +37,21 @@ namespace WaveProject {
             this.Controls.Add(addChannelButton);
         }
 
-        private void Click_AddChannel(object sender, EventArgs e) {
+        public void Click_AddChannel(object sender, EventArgs e) {
             Point p = new Point(0, SumChannelHeight());
             AudioPanel addedPanel = new AudioPanel(this, p);
 
             audioPanels.AddLast(addedPanel);
             this.Controls.Add(addedPanel);
             
+            Resize_Panel();
+        }
+
+        public void Remove_Channel(AudioPanel delete)
+        {
+            audioPanels.Remove(delete);
+            this.Controls.Remove(delete);
+
             Resize_Panel();
         }
 
@@ -85,6 +95,14 @@ namespace WaveProject {
             addChannelButton.Location = new Point((this.ClientSize.Width / 2) - addChannelButton.Width / 2, SumChannelHeight() + ADD_BUTTON_PADDING);
         }
 
+        public void Enable_Edit(bool enabled)
+        {
+            foreach (AudioPanel p in audioPanels)
+            {
+                p.Menu.manager.Enable_Edit(enabled);
+            }
+        }
+
         private void Adjust_ScrollBar() {
             int viewHeight = ((Window)ParentRef).ShowScrollHeight;
             VScrollBar scroll = ((Window)ParentRef).ScrollBar;
@@ -103,6 +121,7 @@ namespace WaveProject {
         }
 
         private void Resize_AudioPanels() {
+            this.Location = new Point(0, Window.HEADER_HEIGHT);
             int yPos = 0;
             foreach (AudioPanel ap in audioPanels) {
                 ap.Location = new Point(AudioPanel.PADDING, yPos);
@@ -116,11 +135,12 @@ namespace WaveProject {
             VirtualHeight = yPos + ADD_BUTTON_TOTALH;
         }
 
+        public GUI.ScrollData ScrollData { get; set; }
         public bool ResizeEvent { get; set; }
         public int VirtualHeight { get; set; }
         private bool scrollToggled = false;
         private CircleButton addChannelButton;
-        private LinkedList<AudioPanel> audioPanels;
+        public LinkedList<AudioPanel> audioPanels;
         public ScrollableControl ParentRef { get; set; }
         public const int ADD_BUTTON_PADDING = 40;
         public const int ADD_BUTTON_SIZE = 122;

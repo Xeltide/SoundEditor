@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,46 +48,139 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AP_PlayBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="AudioChannel.cs" />
     <Compile Include="AudioPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AudioPanelData.cs" />
-    <Compile Include="AudioPanelMenu.cs">
+    <Compile Include="AudioPanelMenuManager.cs" />
+    <Compile Include="GUI\MenuItem\Encoding\Bit16MenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ButtonPanel.cs">
+    <Compile Include="GUI\MenuItem\Encoding\Bit24MenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ChannelPanel.cs">
+    <Compile Include="GUI\MenuItem\Encoding\Bit32MenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CircleButton.cs">
+    <Compile Include="GUI\MenuItem\Encoding\Bit8MenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ComplexNumber.cs" />
-    <Compile Include="FourierMath.cs" />
+    <Compile Include="GUI\MenuItem\Encoding\khz11MenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Encoding\khz22MenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Encoding\khz44MenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Encoding\khz8MenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\File\CloseMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Fourier\ApplyFilter1MenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Fourier\ApplyFilter2MenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\MonoMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\File\OpenMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Fourier\RunFourierMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\StereoMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Windowing\RectangularWinMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Windowing\SineWinMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Windowing\TriangularWinMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Windowing\WelchWinMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\ScrollData.cs" />
+    <Compile Include="Service\DLLWrapper.cs" />
+    <Compile Include="Service\EditTimeDomain.cs" />
+    <Compile Include="Service\SignalProcessing.cs" />
+    <Compile Include="Structure\BitMapper.cs" />
+    <Compile Include="Structure\TypeKey.cs" />
+    <Compile Include="Workers\ChartRenderWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workers\DeleteWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\AudioPanelMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Abstract\AbsMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\ButtonPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\CircleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Edit\CopyMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Edit\CutMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Edit\DeleteMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MenuItem\Edit\PasteMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workers\FourierWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workers\FilterWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workers\PasteWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Structure\ComplexNumber.cs" />
+    <Compile Include="Service\FourierMath.cs" />
     <Compile Include="FrequencyChannel.cs" />
     <Compile Include="FrequencyPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MasterChannel.cs" />
-    <Compile Include="MenuColoursTable.cs" />
-    <Compile Include="RIFFData.cs" />
+    <Compile Include="Structure\MenuColoursTable.cs" />
+    <Compile Include="Structure\RIFFData.cs" />
     <Compile Include="ScrollPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WavPackager.cs" />
     <Compile Include="WavParser.cs" />
-    <Compile Include="Window.cs">
+    <Compile Include="GUI\Window.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Window.Designer.cs">
+    <Compile Include="GUI\Window.Designer.cs">
       <DependentUpon>Window.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Window.resx">
+    <EmbeddedResource Include="GUI\Window.resx">
       <DependentUpon>Window.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -111,6 +205,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

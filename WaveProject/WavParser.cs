@@ -35,6 +35,7 @@ namespace WaveProject {
             output.ChunkID = new byte[4];
             Array.Copy(file, 0, output.ChunkID, 0, 4);
             output.FileSize = BitConverter.ToInt32(file, 4);
+            Console.WriteLine(output.FileSize + ", " + (output.FileSize - 44));
             output.RIFFType = new byte[4];
             Array.Copy(file, 8, output.RIFFType, 0, 4);
 
